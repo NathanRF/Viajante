@@ -10,6 +10,19 @@ namespace Viajante
     {
         static void Main(string[] args)
         {
+            Console.Write("Numero de cidades: ");
+            int cidades = int.Parse(Console.ReadLine());
+
+            int[,] distancias = new int[cidades, cidades];
+
+
+        }
+
+        static bool PreencheMatriz(int[,] matriz)
+        {
+
+
+            return false;
         }
     }
 }
