@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Viajante
 {
     class Program
-    {
+    {        
         static void Main(string[] args)
         {
             Console.Write("Numero de cidades: ");
@@ -23,6 +19,15 @@ namespace Viajante
 
 
             return false;
+        }
+
+        static string ForcaButa(int[,] distancias)
+        {
+            Caminho caminho = new Caminho(distancias.GetLength(0));
+
+
+
+            return null;
         }
     }
 }
