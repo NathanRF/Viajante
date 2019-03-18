@@ -13,13 +13,37 @@ namespace Viajante
 
             int[,] distancias = new int[cidades, cidades];
 
+            PreencheMatriz(distancias);
+
+            Console.ReadKey();
         }
 
-        static bool PreencheMatriz(int[,] matriz)
+        static void PreencheMatriz(int[,] matriz)
         {
+            Random r = new Random();
+            int distancia;
 
+            for (int lin = 0; lin < matriz.GetLength(0); lin++)
+            {
+                matriz[lin, lin] = 0;
 
-            return false;
+                for (int col = lin + 1; col < matriz.GetLength(1); col++)
+                {
+                    distancia = r.Next(1, 10);
+                    matriz[lin, col] = distancia;
+                    matriz[col, lin] = distancia;
+                }
+            }
+                
+
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(0); j++)
+                {
+                    Console.Write(matriz[i,j] + " ");
+                }
+                Console.WriteLine();
+            }
         }
 
         static string ForcaBruta(int[,] distancias)
@@ -34,7 +58,7 @@ namespace Viajante
 
                 for (int i = 1; i < numCidades; i++)
                 {
-                    caminhoatual.caminho[j] = distancias[];
+                    caminhoatual.caminho[j] = distancias[j, 0];
                 }
 
                 caminhos.Add(caminhoatual);
