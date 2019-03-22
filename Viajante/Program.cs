@@ -13,11 +13,23 @@ namespace Viajante
 
             int[,] distancias = new int[cidades, cidades];
 
-            string[] vetor = GeradorDeCaminho(distancias.GetLength(0) - 1);
+            List<int[]> caminhos;
+            string[] vetor = GeradorDeCaminho((distancias.GetLength(0) - 1), out caminhos);
 
             foreach (var item in vetor)
             {
                 Console.WriteLine(item);
+            }
+
+            Console.WriteLine("New method");
+
+            foreach (int[] item in caminhos)
+            {
+                for (int i = 0; i < item.Length; i++)
+                {
+                    Console.Write(item[i]+"\t");
+                }
+                Console.WriteLine();
             }
             Console.ReadKey();
         }
@@ -74,19 +86,21 @@ namespace Viajante
             return null;
         }
 
-        static string[] GeradorDeCaminho(int pontos)
+        static string[] GeradorDeCaminho(int pontos, out List<int[]> paths)
         {
             int[] caminho = new int[pontos];
             int[] temp = new int[pontos];
+            int[] caminhoGerado;
             int permutacoesPossiveis = 0;
             int y = pontos;
             int index = 0;
+            paths = new List<int[]>();
 
             for (int i = 0; i < caminho.Length; i++) //Insere no vetor de caminhos os identificadores de cada cidade
             {
                 caminho[i] = i + 1;
             }
-
+            
             permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
             //int[,] lista = new int[pontos, permutacoesPossiveis]; //Matriz para salvar os caminhos possíveis
 
@@ -94,7 +108,7 @@ namespace Viajante
 
             while (permutacoesPossiveis > 0)
             {
-                for (int j = 0; j < y - 1; j++)
+                for(int j = 0; j < y - 1; j++)
                 {
                     temp[j] = caminho[j + 1];
                     caminho[j + 1] = caminho[j];
@@ -104,6 +118,18 @@ namespace Viajante
                     {
                         caminhos[index] += Convert.ToString(caminho[i]) + ' ';
                     }
+
+                    caminhoGerado = new int[caminho.Length+2];                    
+
+                    for (int i = 1; i < caminho.Length+1; i++)
+                    {
+                        caminhoGerado[i] = caminho[i-1];
+                    }
+
+                    //caminhoGerado[0] = 0;
+                    //caminhoGerado[caminho.Length - 1] = 0;
+
+                    paths.Add(caminhoGerado);
                     index++;
                 }
                 permutacoesPossiveis -= y - 1;
