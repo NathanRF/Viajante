@@ -13,8 +13,12 @@ namespace Viajante
 
             int[,] distancias = new int[cidades, cidades];
 
-            PreencheMatriz(distancias);
+            string[] vetor = GeradorDeCaminho(distancias.GetLength(0) - 1);
 
+            foreach (var item in vetor)
+            {
+                Console.WriteLine(item);
+            }
             Console.ReadKey();
         }
 
@@ -70,17 +74,50 @@ namespace Viajante
             return null;
         }
 
-        static void GeradorDeCaminho(int[,] pontos)
+        static string[] GeradorDeCaminho(int pontos)
         {
-            int size = pontos.GetLength(0);
+            int[] caminho = new int[pontos];
+            int[] temp = new int[pontos];
+            int permutacoesPossiveis = 0;
+            int y = pontos;
+            int index = 0;
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < caminho.Length; i++) //Insere no vetor de caminhos os identificadores de cada cidade
             {
-                for (int j = 0; j < size; j++)
-                {
-                    
-                }
+                caminho[i] = i + 1;
             }
+
+            permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
+            //int[,] lista = new int[pontos, permutacoesPossiveis]; //Matriz para salvar os caminhos possíveis
+
+            string[] caminhos = new string[permutacoesPossiveis];
+
+            while (permutacoesPossiveis > 0)
+            {
+                for (int j = 0; j < y - 1; j++)
+                {
+                    temp[j] = caminho[j + 1];
+                    caminho[j + 1] = caminho[j];
+                    caminho[j] = temp[j];
+
+                    for (int i = 0; i < caminho.Length; i++)
+                    {
+                        caminhos[index] += Convert.ToString(caminho[i]) + ' ';
+                    }
+                    index++;
+                }
+                permutacoesPossiveis -= y - 1;
+            }
+
+            return caminhos;
+        }
+
+        static int Fat(int num)
+        {
+            if (num <= 1)
+                return 1;
+            else
+                return num * Fat(num - 1);
         }
     }
 }
