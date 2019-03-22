@@ -11,17 +11,27 @@ namespace Viajante
             int cidades = int.Parse(Console.ReadLine());
 
             int[,] distancias = new int[cidades, cidades];
+            
+            List<int[]> caminhos = GeradorDeCaminho((distancias.GetLength(0) - 1));
+            PreencheMatriz(distancias);
 
-            List<int[]> caminhos = GeradorDeCaminho((distancias.GetLength(0) - 1));            
+            List<int> allPaths = ForcaBruta(distancias, caminhos);
+
+            foreach (var item in allPaths)
+            {                
+                Console.WriteLine(item);
+            }
+
 
             foreach (int[] item in caminhos)
             {
                 for (int i = 0; i < item.Length; i++)
                 {
-                    Console.Write(item[i]+"\t");
+                    Console.Write(item[i] + "\t");
                 }
                 Console.WriteLine();
             }
+
             Console.ReadKey();
         }
 
@@ -60,7 +70,7 @@ namespace Viajante
 
             foreach (int[] caminho in paths)
             {
-                for (int i = 0; i < caminho.Length; i++)
+                for (int i = 0; i < caminho.Length-1; i++)
                     soma += distancias[caminho[i], caminho[i + 1]];
 
                 allPaths.Add(soma);
