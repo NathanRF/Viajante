@@ -77,6 +77,11 @@ namespace Viajante
             return null;
         }
 
+        /// <summary>
+        /// Gera uma lista de votores de inteiros com permutações
+        /// </summary>
+        /// <param name="pontos"> Quantidade de cidades -1</param>
+        /// <returns>Gera uma lista de votores de inteiros com permutações</returns>
         static List<int[]> GeradorDeCaminho(int pontos)
         {
             int[] caminho = new int[pontos];
@@ -93,7 +98,7 @@ namespace Viajante
             
             permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
 
-            while (permutacoesPossiveis > 0)
+            while (permutacoesPossiveis > 0) 
             {
                 for(int j = 0; j < pontos - 1; j++)
                 {
