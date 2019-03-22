@@ -86,15 +86,15 @@ namespace Viajante
             return null;
         }
 
-        static string[] GeradorDeCaminho(int pontos, out List<int[]> paths)
+        static List<int[]> GeradorDeCaminho(int pontos)
         {
             int[] caminho = new int[pontos];
             int[] temp = new int[pontos];
             int[] caminhoGerado;
             int permutacoesPossiveis = 0;
-            int y = pontos;
-            int index = 0;
-            paths = new List<int[]>();
+            //int y = pontos;
+            //int index = 0;
+            List<int[]>paths = new List<int[]>();
 
             for (int i = 0; i < caminho.Length; i++) //Insere no vetor de caminhos os identificadores de cada cidade
             {
@@ -104,22 +104,22 @@ namespace Viajante
             permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
             //int[,] lista = new int[pontos, permutacoesPossiveis]; //Matriz para salvar os caminhos possíveis
 
-            string[] caminhos = new string[permutacoesPossiveis];
+            //string[] caminhos = new string[permutacoesPossiveis];
 
             while (permutacoesPossiveis > 0)
             {
-                for(int j = 0; j < y - 1; j++)
+                for(int j = 0; j < pontos - 1; j++)
                 {
                     temp[j] = caminho[j + 1];
                     caminho[j + 1] = caminho[j];
                     caminho[j] = temp[j];
 
-                    for (int i = 0; i < caminho.Length; i++)
-                    {
-                        caminhos[index] += Convert.ToString(caminho[i]) + ' ';
-                    }
+                    //for (int i = 0; i < caminho.Length; i++)
+                    //{
+                    //    caminhos[index] += Convert.ToString(caminho[i]) + ' ';
+                    //}
 
-                    caminhoGerado = new int[caminho.Length+2];                    
+                    caminhoGerado = new int[caminho.Length+2];
 
                     for (int i = 1; i < caminho.Length+1; i++)
                     {
@@ -130,12 +130,12 @@ namespace Viajante
                     //caminhoGerado[caminho.Length - 1] = 0;
 
                     paths.Add(caminhoGerado);
-                    index++;
+                    //index++;
                 }
-                permutacoesPossiveis -= y - 1;
+                permutacoesPossiveis -= pontos - 1;
             }
 
-            return caminhos;
+            return paths;
         }
 
         static int Fat(int num)
