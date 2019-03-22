@@ -53,28 +53,21 @@ namespace Viajante
             }
         }
 
-        static string ForcaBruta(int[,] distancias)
+        static List<int> ForcaBruta(int[,] distancias, List<int[]> paths)
         {
-            List<Caminho> caminhos = new List<Caminho>();
-            int j = 0;
-            int numCidades = distancias.GetLength(0);
+            List<int> allPaths= new List<int>();
+            int soma = 0;
 
-            while (j < numCidades)
+            foreach (int[] caminho in paths)
             {
-                Caminho caminhoatual = new Caminho(numCidades + 1);
+                for (int i = 0; i < caminho.Length; i++)
+                    soma += distancias[caminho[i], caminho[i + 1]];
 
-                for (int i = 1; i < numCidades; i++)
-                {
-                    caminhoatual.caminho[j] = distancias[j, 0];
-                }
-
-                caminhos.Add(caminhoatual);
-                j++;
-            }            
+                allPaths.Add(soma);
+                soma = 0;
+            }
             
-            
-
-            return null;
+            return allPaths;
         }
 
         static List<int[]> GeradorDeCaminho(int pontos)
