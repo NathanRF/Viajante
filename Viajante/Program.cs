@@ -22,7 +22,6 @@ namespace Viajante
                 Console.WriteLine(item);
             }
 
-
             foreach (int[] item in caminhos)
             {
                 for (int i = 0; i < item.Length; i++)
@@ -63,6 +62,12 @@ namespace Viajante
             }
         }
 
+        /// <summary>
+        /// Calcula distancias entre as cidades a partir dos caminhos
+        /// </summary>
+        /// <param name="distancias">Distancias entre cidades</param>
+        /// <param name="paths">Caminhos possíveis</param>
+        /// <returns>Lista com resultados</returns>
         static List<int> ForcaBruta(int[,] distancias, List<int[]> paths)
         {
             List<int> allPaths= new List<int>();
