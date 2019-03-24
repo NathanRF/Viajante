@@ -9,9 +9,9 @@ namespace Viajante
     class Caminho
     {                        
         private int[,] distancias; //matriz de distancias entre cidades
-        private List<int[]> itinerarios; //caminhos a serem percorridos
-        private List<int> allPaths; //Resultados de distancias de cada caminho percorrido
-        private List<string> sequencia = new List<string>(); //Cidades que foram percorridas em sequencia por extenso
+        //private List<int[]> itinerarios; //caminhos a serem percorridos
+        //private List<int> allPaths; //Resultados de distancias de cada caminho percorrido
+        //private List<string> sequencia = new List<string>(); //Cidades que foram percorridas em sequencia por extenso
 
         public string menorCaminhoPercorrido {get; private set; }
         public int menorDistancia { get; private set; }
@@ -20,8 +20,8 @@ namespace Viajante
         {
             distancias = new int[tamanho, tamanho];
             PreencheMatriz(distancias);
-            itinerarios = GeradorDeCaminho((distancias.GetLength(0) - 1));
-            allPaths = ForcaBruta(distancias, itinerarios);
+            /*itinerarios = */GeradorDeCaminho((distancias.GetLength(0) - 1));
+            //allPaths = ForcaBruta(distancias, itinerarios);
 
             //Substituir por um unico metodo que realiza as permutações e calculos de distancia mas não salva em uma lista, 
             //apenas atualiza a propriedade de menor distancia
@@ -59,22 +59,21 @@ namespace Viajante
         /// </summary>
         /// <param name="pontos"> Quantidade de cidades -1</param>
         /// <returns>Lista de votores de inteiros com permutações</returns>
-        private List<int[]> GeradorDeCaminho(int pontos)
+        private void GeradorDeCaminho(int pontos)
         {
             int[] caminho = new int[pontos];
             int[] temp = new int[pontos];
-            int[] caminhoGerado;
-            int permutacoesPossiveis = 0;
-
-            List<int[]> paths = new List<int[]>();
+            int[] caminhoGerado;            
+            int distanciaAtual;
 
             for (int i = 0; i < caminho.Length; i++) //Insere no vetor de caminhos os identificadores de cada cidade
             {
                 caminho[i] = i + 1;
             }
 
-            permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
+            int permutacoesPossiveis = Fat(pontos); //Número de combinaçãoes possíveis de cidades (Fatorial do número de cidades - 1)
 
+            menorDistancia = int.MaxValue;
             while (permutacoesPossiveis > 0) //Faz permutações e insere os resultados na lista de vetores
             {
                 for (int j = 0; j < pontos - 1; j++)
@@ -90,12 +89,16 @@ namespace Viajante
                         caminhoGerado[i] = caminho[i - 1];
                     }
 
-                    paths.Add(caminhoGerado);
+                    distanciaAtual = ForcaBruta(distancias, caminhoGerado);
+                    if(distanciaAtual < menorDistancia)
+                    {
+                        menorDistancia = distanciaAtual;
+                        menorCaminhoPercorrido = CaminhoToText(caminhoGerado);
+                    }
+                    //paths.Add(caminhoGerado);
                 }
                 permutacoesPossiveis -= pontos - 1;
             }
-
-            return paths;
         }
 
         /// <summary>
@@ -104,41 +107,31 @@ namespace Viajante
         /// <param name="distancias">Distancias entre cidades</param>
         /// <param name="paths">Caminhos possíveis</param>
         /// <returns>Lista com resultados</returns>
-        private List<int> ForcaBruta(int[,] distancias, List<int[]> paths)
+        private int ForcaBruta(int[,] distancias, int[] caminho)
         {
-            List<int> caminhos = new List<int>();
+            int soma = 0;
 
-            int soma = 0, index = 0;
-            menorDistancia = int.MaxValue;
+            for (int i = 0; i < caminho.Length - 1; i++)
+            {
+                    soma += distancias[caminho[i], caminho[i + 1]]; //Distancia
+            }
+
+            return soma;
+        }
+
+        private string CaminhoToText(int[] caminho)
+        {
             string caminhoUsado = "";
 
-            foreach (int[] caminho in paths)
+            for (int i = 0; i < caminho.Length-1; i++)
             {
-                for (int i = 0; i < caminho.Length - 1; i++)
-                {
-                    soma += distancias[caminho[i], caminho[i + 1]]; //Distancia
+                if (i == 0) //Caminho atual por extenso
+                    caminhoUsado += ("Cidade " + caminho[i] + " --> " + "Cidade " + caminho[i + 1]);
+                else
+                    caminhoUsado += (" --> " + "Cidade " + caminho[i + 1]);
+            }
 
-                    if (i == 0) //Caminho atual por extenso
-                        caminhoUsado += ("Cidade " + caminho[i] + " --> " + "Cidade " + caminho[i + 1]);
-                    else
-                        caminhoUsado += (" --> " + "Cidade " + caminho[i + 1]);
-                }
-
-                sequencia.Add(caminhoUsado);
-                caminhos.Add(soma);
-
-                if (soma < menorDistancia) //Define o menor caminho e a distancia deste caminho
-                {
-                    menorDistancia = soma;
-                    menorCaminhoPercorrido = caminhoUsado;
-                }
-
-                caminhoUsado = "";
-                soma = 0;
-                index++;
-            }            
-
-            return caminhos;
+            return caminhoUsado;
         }
 
         public string Resultados()
@@ -147,7 +140,7 @@ namespace Viajante
 
 
 
-            return null;
+            return resultados;
         }
 
         private int Fat(int num) //Cálculo de fatorial
