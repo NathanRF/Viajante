@@ -92,7 +92,7 @@ namespace Viajante
                     }
 
                     distanciaAtual = SomaDistancia(distancias, caminhoGerado);
-                    if(distanciaAtual < menorDistancia && j>0)
+                    if(distanciaAtual > menorDistancia && j>0)
                     {
                         return;
                     }
