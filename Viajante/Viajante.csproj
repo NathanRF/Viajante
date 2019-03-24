@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlgoritmoOn2.cs" />
     <Compile Include="ForcaBruta.cs" />
     <Compile Include="ForcaBrutaOtimizacao.cs" />
     <Compile Include="Program.cs" />
