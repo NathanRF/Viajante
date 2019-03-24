@@ -22,15 +22,6 @@ namespace Viajante
                 Console.WriteLine(item);
             }
 
-            foreach (int[] item in caminhos)
-            {
-                for (int i = 0; i < item.Length; i++)
-                {
-                    Console.Write(item[i] + "\t");
-                }
-                Console.WriteLine();
-            }
-
             Console.ReadKey();
         }
 
@@ -49,17 +40,7 @@ namespace Viajante
                     matriz[lin, col] = distancia;
                     matriz[col, lin] = distancia;
                 }
-            }
-                
-
-            for (int i = 0; i < matriz.GetLength(0); i++)
-            {
-                for (int j = 0; j < matriz.GetLength(0); j++)
-                {
-                    Console.Write(matriz[i,j] + " ");
-                }
-                Console.WriteLine();
-            }
+            }               
         }
 
         /// <summary>
