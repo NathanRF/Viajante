@@ -15,9 +15,6 @@ namespace Viajante
         Stopwatch stopwatch;
 
         public long tempoGasto { get; private set; }
-        public int[] menorCaminhoPercorrido { get; private set; }
-        public int menorDistancia { get; private set; }
-
 
         public AlgoritmoOn2(int num)
         {
