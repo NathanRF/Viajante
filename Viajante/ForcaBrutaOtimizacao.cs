@@ -28,7 +28,7 @@ namespace Viajante
 
         public override string ToString()
         {
-            string result = ("Menor caminho: " + CaminhoToText(menorCaminhoPercorrido) +
+            string result = ("\nMenor caminho: " + CaminhoToText(menorCaminhoPercorrido) +
                              "\nDistância: " + menorDistancia +
                              "\nTempo Decorrido: " + stopwatch.ElapsedMilliseconds + "ms");
             return (result);

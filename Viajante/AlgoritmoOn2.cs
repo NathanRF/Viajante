@@ -38,7 +38,7 @@ namespace Viajante
             }
             caminho = caminho.Remove(caminho.Length - 3);
 
-            string result = ("Caminho: " + caminho +
+            string result = ("\nCaminho: " + caminho +
                              "\nDistância: " + custo_Total +
                              "\nTempo de Processamento: " + stopwatch.ElapsedMilliseconds + "ms");
             return (result);
