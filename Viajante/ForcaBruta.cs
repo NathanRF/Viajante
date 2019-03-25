@@ -27,11 +27,11 @@ namespace Viajante
         }
 
         public override string ToString()
-        {            
-            string result = ("\nMenor caminho: " + CaminhoToText(menorCaminhoPercorrido) + 
-                             "\nDistância: " + menorDistancia + 
-                             "\nTempo Decorrido: "+stopwatch.ElapsedMilliseconds+"ms");
+        {
+            string result = string.Format("Caminho: {0} \nDistância: {1} \nTempo de processamento: {2:00} hrs:{3:00} min:{4:00} seg .{5:0000} ms", CaminhoToText(menorCaminhoPercorrido),
+                              menorDistancia, stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds, stopwatch.Elapsed.Milliseconds);
             return (result);
+            
         }
 
         /// <summary>

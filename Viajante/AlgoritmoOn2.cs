@@ -38,9 +38,8 @@ namespace Viajante
             }
             caminho = caminho.Remove(caminho.Length - 3);
 
-            string result = ("\nCaminho: " + caminho +
-                             "\nDistância: " + custo_Total +
-                             "\nTempo de Processamento: " + stopwatch.ElapsedMilliseconds + "ms");
+            string result = string.Format("Caminho: {0} \nDistância: {1} \nTempo de processamento: {2:00}:{3:00}:{4:00}.{5:00}", caminho,
+                             custo_Total, stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds, stopwatch.Elapsed.Milliseconds);
             return (result);
         }
         /// <summary>
