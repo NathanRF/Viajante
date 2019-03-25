@@ -43,8 +43,11 @@ namespace Viajante
             //    //w.WriteLine(string.Format("{0};{1}", cidades, a.tempoGasto));
             //}
 
-            ForcaBrutaOtimizacao test = new ForcaBrutaOtimizacao(50);
-            Console.WriteLine(test);
+            //ForcaBrutaOtimizacao test = new ForcaBrutaOtimizacao(4);
+            //Console.WriteLine(test);
+
+            AlgoritmoOn2 cv = new AlgoritmoOn2(3);
+            Console.WriteLine(cv);
 
 
             Console.WriteLine("\nResultados salvos no arquivo \"ForcaBruta_Resultados.csv\"");

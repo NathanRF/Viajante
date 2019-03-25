@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace Viajante
 {
     class ForcaBrutaOtimizacao
-    {
+    {        
         private int[,] distancias; //matriz de distancias entre cidades
         private Stopwatch stopwatch;
 
@@ -66,7 +66,7 @@ namespace Viajante
             int[] caminho = new int[pontos];
             int[] temp = new int[pontos];
             int[] caminhoGerado;
-            int distanciaAtual;
+            //int distanciaAtual;
 
             for (int i = 0; i < caminho.Length; i++) //Insere no vetor de caminhos os identificadores de cada cidade
             {
@@ -91,16 +91,16 @@ namespace Viajante
                         caminhoGerado[i] = caminho[i - 1];
                     }
 
-                    distanciaAtual = SomaDistancia(distancias, caminhoGerado);
-                    if(distanciaAtual > menorDistancia && j>0)
-                    {
-                        return;
-                    }
-                    else if(distanciaAtual < menorDistancia)
-                    {
-                        menorDistancia = distanciaAtual;
-                        menorCaminhoPercorrido = caminhoGerado;
-                    }
+                    //distanciaAtual = SomaDistancia(distancias, caminhoGerado);
+                    ////if(distanciaAtual > menorDistancia && j>0)
+                    ////{
+                    ////    return;
+                    ////}
+                    //if(distanciaAtual < menorDistancia)
+                    //{
+                    //    menorDistancia = distanciaAtual;
+                    //    menorCaminhoPercorrido = caminhoGerado;
+                    //}
                 }
                 permutacoesPossiveis -= Convert.ToUInt64(pontos) - 1;
             }
@@ -119,8 +119,12 @@ namespace Viajante
             for (int i = 0; i < caminho.Length - 1; i++)
             {
                 soma += distancias[caminho[i], caminho[i + 1]]; //Distancia
+
+                if (soma > menorDistancia)
+                    return soma;
             }
 
+            menorDistancia = soma;
             return soma;
         }
 
