@@ -92,14 +92,16 @@ namespace Viajante
                     }
 
                     distanciaAtual = SomaDistancia(distancias, caminhoGerado);
-                    ////if(distanciaAtual > menorDistancia && j>0)
-                    ////{
-                    ////    return;
-                    ////}
-                    //if(distanciaAtual < menorDistancia)
-                    //{
+                    if(distanciaAtual > -1)
+                    {
                         menorDistancia = distanciaAtual;
                         menorCaminhoPercorrido = caminhoGerado;
+                        ////    return;
+                    }
+                    //if(distanciaAtual < menorDistancia)
+                    //{
+                        //menorDistancia = distanciaAtual;
+                        //menorCaminhoPercorrido = caminhoGerado;
                     //}
                 }
                 permutacoesPossiveis -= Convert.ToUInt64(pontos) - 1;
@@ -121,7 +123,7 @@ namespace Viajante
                 soma += distancias[caminho[i], caminho[i + 1]]; //Distancia
 
                 if (soma > menorDistancia)
-                    return soma;
+                    return -1;
             }
 
             menorDistancia = soma;
